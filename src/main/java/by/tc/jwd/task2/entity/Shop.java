@@ -17,11 +17,16 @@ public class Shop implements Serializable {
     }
 
     public void addCustomer(Customer customer){
+        System.out.println("asd");
         customersJournal.add(customer);
     }
 
     public Customer getCustomer(int i){
         return customersJournal.get(i);
+    }
+
+    public void deleteCustomer(Customer customer){
+        customersJournal.remove(customer);
     }
 
     public Customer getCustomer(String name){
@@ -34,13 +39,17 @@ public class Shop implements Serializable {
         return null;
     }
 
+    public int getCostumersCount(){
+        return customersJournal.size();
+    }
+
     public boolean isRecorded(Customer customer){
 
-        boolean exist = true;
+        boolean exist = false;
 
         for (Customer shopClient : customersJournal ) {
             if (shopClient.getName().equalsIgnoreCase(customer.getName())){
-                exist = false;
+                exist = true;
                 break;
             }
         }
@@ -97,22 +106,25 @@ public class Shop implements Serializable {
 
     @Override
     public int hashCode() {
-
         return Objects.hash(goods, customersJournal);
     }
 
     @Override
     public String toString() {
 
-        StringBuilder res = new StringBuilder();
+        StringBuilder goodsInfo = new StringBuilder();
+        StringBuilder customerInfo = new StringBuilder();
 
         for (SportEquipment key: goods.keySet()) {
-            res.append(key.getTitle()).append(" -- ").append(goods.get(key)).append("\n");
+            goodsInfo.append(key.getTitle()).append(" -- ").append(goods.get(key)).append("\n");
+        }
+        for (Customer customer: customersJournal){
+            customerInfo.append(customer).append("\n");
         }
 
         return "Shop{" +
-                "goods=" + res +
-
+                "goods=" + goodsInfo +
+                "customersJournal=" + customerInfo +
                 '}';
     }
 }

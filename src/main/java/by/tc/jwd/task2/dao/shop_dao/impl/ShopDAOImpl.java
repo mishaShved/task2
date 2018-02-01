@@ -7,7 +7,9 @@ import by.tc.jwd.task2.entity.SportEquipment;
 import by.tc.jwd.task2.entity.category.Category;
 import by.tc.jwd.task2.exception.*;
 import by.tc.jwd.task2.serialization.ShopSerialization;
+import com.sun.org.apache.xpath.internal.SourceTree;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,22 +53,38 @@ public class ShopDAOImpl implements ShopDAO {
         if (shop.getEquipmentsCount(sportEquipment) == 0) {
             throw new EquipmentIsNotAvailableException();
         }
-        if (sportEquipment.getPrice() > customer.getMoney()) {
-            throw new NotEnoughtMoneyException();
-        }
+
         if (customer.getCountOfRentedEquipment() == 3) {
             throw new ExcessMaximumQuantityEquipmentsException();
         }
-
         if (!shop.isRecorded(customer)){
             shop.addCustomer(customer);
-            customer = shop.getCustomer(customer.getName());
         }
+        customer = shop.getCustomer(customer.getName());
+        if (sportEquipment.getPrice() > customer.getMoney()) {
+            throw new NotEnoughtMoneyException();
+        }
+
+
         customer.addEquipment(sportEquipment);
         customer.setMoney(customer.getMoney() - sportEquipment.getPrice());
         shop.setEquipmentsValue(sportEquipment, shop.getEquipmentsCount(sportEquipment) - 1);
 
         return sportEquipment;
+    }
+
+    @Override
+    public void returnEquipment(Customer customer, int equipmentIndex) throws ShopIsNotOpenException {
+        if (shop == null) {
+            throw new ShopIsNotOpenException();
+        }
+
+        customer = shop.getCustomer(customer.getName());
+        customer.returnEquipment(equipmentIndex);
+
+        if(customer.getCountOfRentedEquipment() == 0){
+            shop.deleteCustomer(customer);
+        }
     }
 
 
@@ -90,10 +108,22 @@ public class ShopDAOImpl implements ShopDAO {
 
     @Override
     public List<SportEquipment> getInfoAboutIssuesGoods() throws ShopIsNotOpenException {
+
         if (shop == null){
             throw new ShopIsNotOpenException();
         }
-        return null;
+        List<SportEquipment> info = new ArrayList<>();
+
+        int i = 0;
+
+        while (i < shop.getCostumersCount()){
+
+            for (int j = 0; j < shop.getCustomer(i).getCountOfRentedEquipment(); j++) {
+                info.add(shop.getCustomer(i).getEquipment(j));
+            }
+            i++;
+        }
+        return info;
     }
 
     @Override

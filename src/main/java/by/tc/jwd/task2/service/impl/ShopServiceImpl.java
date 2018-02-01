@@ -39,13 +39,18 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
+    public void returnEquipment(Customer customer, int equipmentIndex) throws ShopIsNotOpenException {
+        shopDAO.returnEquipment(customer, equipmentIndex);
+    }
+
+    @Override
     public List<SportEquipment> findEquipments(Category category) throws ShopIsNotOpenException {
         return shopDAO.findEquipments(category);
     }
 
     @Override
     public List<SportEquipment> getInfoAboutIssuesGoods() throws ShopIsNotOpenException {
-        return null;
+        return shopDAO.getInfoAboutIssuesGoods();
     }
 
     @Override

@@ -39,11 +39,13 @@ public class Main {
             //shopService.addEquipment(equipment1, 1);
 
             List<SportEquipment> equipmentList = shopService.findEquipments(Category.BALL);
-
-            shopService.leaseEquipment(equipmentList.get(0), misha);
-
             System.out.println(shopService.getInfoAboutIssuesGoods());
-            System.out.println(misha);
+            shopService.leaseEquipment(equipmentList.get(0), misha);
+            shopService.leaseEquipment(equipmentList.get(0), oleg);
+
+
+
+            //System.out.println(misha);
 
 
 
