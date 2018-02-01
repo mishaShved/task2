@@ -5,7 +5,14 @@ import by.tc.jwd.task2.entity.Shop;
 import by.tc.jwd.task2.exception.PropertyFileNotFoundException;
 import by.tc.jwd.task2.exception.WorkWithDataSourceException;
 
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 
 public class ShopSerialization {
 
