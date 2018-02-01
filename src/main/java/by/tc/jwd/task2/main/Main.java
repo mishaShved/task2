@@ -67,7 +67,7 @@ public class Main {
         }
 
         try{
-//
+
 //            shopService.addEquipment(footballBall, 10);
 //            shopService.addEquipment(volleyBall, 10);
 //
@@ -106,7 +106,7 @@ public class Main {
             }
 
             criteria = new Criteria();
-            criteria.add(SearchCriteria.simpleEquipment.CATEGORY, Category.SKATES);
+            criteria.add(SearchCriteria.simpleEquipment.CATEGORY, Category.BICYCLE);
 
             try {
                 shopService.leaseEquipment(shopService.findEquipments(criteria).get(0), oleg);

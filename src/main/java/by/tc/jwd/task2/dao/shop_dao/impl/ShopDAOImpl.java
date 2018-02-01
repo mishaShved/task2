@@ -58,15 +58,17 @@ public class ShopDAOImpl implements ShopDAO {
             throw new EquipmentIsNotAvailableException();
         }
 
-        if (customer.getCountOfRentedEquipment() == 3) {
-            throw new ExcessMaximumQuantityEquipmentsException();
-        }
         if (!shop.isRecorded(customer)){
             shop.addCustomer(customer);
         }
+
         customer = shop.getCustomer(customer.getName());
+
         if (sportEquipment.getPrice() > customer.getMoney()) {
             throw new NotEnoughtMoneyException();
+        }
+        if (customer.getCountOfRentedEquipment() == 3) {
+            throw new ExcessMaximumQuantityEquipmentsException();
         }
 
 
