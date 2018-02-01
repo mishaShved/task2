@@ -5,9 +5,13 @@ import by.tc.jwd.task2.entity.Customer;
 import by.tc.jwd.task2.entity.Shop;
 import by.tc.jwd.task2.entity.SportEquipment;
 import by.tc.jwd.task2.entity.criteria.Category;
+import by.tc.jwd.task2.entity.criteria.Criteria;
+import by.tc.jwd.task2.entity.criteria.SearchCriteria;
 import by.tc.jwd.task2.exception.*;
 import by.tc.jwd.task2.serialization.ShopSerialization;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -89,7 +93,7 @@ public class ShopDAOImpl implements ShopDAO {
 
 
     @Override
-    public List<SportEquipment> findEquipments(Category category) throws ShopIsNotOpenException {
+    public List<SportEquipment> findEquipments(Criteria criteria) throws ShopIsNotOpenException {
 
         if (shop == null){
             throw new ShopIsNotOpenException();
@@ -97,10 +101,32 @@ public class ShopDAOImpl implements ShopDAO {
 
         List<SportEquipment> searchResult = new ArrayList<SportEquipment>();
 
+        boolean isFits = true;
+        String methodName = "";
+
+
         for (SportEquipment equipment : shop.getKeySet()) {
-            if (equipment.getCategory() == category) {
+
+            isFits = true;
+
+            for (SearchCriteria.simpleEquipment criteriaKey : criteria.getKeySet()) {
+
+                methodName = "get" + criteriaKey.name().toCharArray()[0] +
+                        criteriaKey.name().substring(1).toLowerCase();
+
+                if (!invokeMethod(methodName, equipment).
+                        equalsIgnoreCase(criteria.getElement(criteriaKey).toString())) {
+
+                    isFits = false;
+                    break;
+                }
+
+            }
+
+            if(isFits){
                 searchResult.add(equipment);
             }
+
         }
 
         return searchResult;
@@ -119,7 +145,6 @@ public class ShopDAOImpl implements ShopDAO {
         while (i < shop.getCostumersCount()){
 
             for (int j = 0; j < shop.getCustomer(i).getCountOfRentedEquipment(); j++) {
-                //info.add(shop.getCustomer(i).getEquipment(j));
                 if (info.containsKey(shop.getCustomer(i).getEquipment(j))){
                     info.put(shop.getCustomer(i).getEquipment(j), info.get(shop.getCustomer(i).getEquipment(j)) + 1);
                 }else{
@@ -155,5 +180,19 @@ public class ShopDAOImpl implements ShopDAO {
         ShopSerialization.write(shop);
 
 
+    }
+
+    private String invokeMethod(String str, SportEquipment equipment){
+
+        String invokeResult = "";
+
+        try {
+            Class sportEquipmentClass = equipment.getClass();
+            Method  method = sportEquipmentClass.getMethod(str);
+            invokeResult = method.invoke(equipment) + "";
+        } catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
+
+        }
+        return invokeResult;
     }
 }

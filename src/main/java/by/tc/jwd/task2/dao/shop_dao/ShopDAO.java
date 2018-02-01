@@ -3,6 +3,7 @@ package by.tc.jwd.task2.dao.shop_dao;
 import by.tc.jwd.task2.entity.Customer;
 import by.tc.jwd.task2.entity.SportEquipment;
 import by.tc.jwd.task2.entity.criteria.Category;
+import by.tc.jwd.task2.entity.criteria.Criteria;
 import by.tc.jwd.task2.exception.*;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public interface ShopDAO {
 
     void returnEquipment(Customer customer, int equipmentIndex) throws ShopIsNotOpenException;
 
-    List<SportEquipment> findEquipments(Category category) throws ShopIsNotOpenException;
+    List<SportEquipment> findEquipments(Criteria criteria) throws ShopIsNotOpenException;
 
     Map<SportEquipment, Integer> getInfoAboutIssuesGoods() throws ShopIsNotOpenException;
 

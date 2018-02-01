@@ -5,6 +5,7 @@ import by.tc.jwd.task2.dao.shop_dao.ShopDAO;
 import by.tc.jwd.task2.entity.Customer;
 import by.tc.jwd.task2.entity.SportEquipment;
 import by.tc.jwd.task2.entity.criteria.Category;
+import by.tc.jwd.task2.entity.criteria.Criteria;
 import by.tc.jwd.task2.exception.*;
 import by.tc.jwd.task2.service.ShopService;
 
@@ -45,8 +46,8 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public List<SportEquipment> findEquipments(Category category) throws ShopIsNotOpenException {
-        return shopDAO.findEquipments(category);
+    public List<SportEquipment> findEquipments(Criteria criteria) throws ShopIsNotOpenException {
+        return shopDAO.findEquipments(criteria);
     }
 
     @Override
