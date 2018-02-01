@@ -2,12 +2,14 @@ package by.tc.jwd.task2.main;
 
 import by.tc.jwd.task2.entity.Customer;
 import by.tc.jwd.task2.entity.SportEquipment;
-import by.tc.jwd.task2.entity.category.Category;
+import by.tc.jwd.task2.entity.criteria.Category;
 import by.tc.jwd.task2.exception.*;
+import by.tc.jwd.task2.factory.customer_factory.CustomerCreator;
+import by.tc.jwd.task2.factory.customer_factory.CustomerFactory;
+import by.tc.jwd.task2.factory.equipment_factory.EquipmentCreator;
+import by.tc.jwd.task2.factory.equipment_factory.EquipmentFactory;
 import by.tc.jwd.task2.service.ServiceFactory;
 import by.tc.jwd.task2.service.ShopService;
-
-import java.util.List;
 
 
 public class Main {
@@ -18,12 +20,15 @@ public class Main {
         ServiceFactory factory = ServiceFactory.getInstance();
         ShopService shopService = factory.getShopService();
 
+        CustomerCreator customerCreator = CustomerFactory.getOurInstance().getCreator();
+        EquipmentCreator equipmentCreator = EquipmentFactory.getInstance().getCreator();
 
-        Customer misha = new Customer("Misha", 100);
-        Customer oleg = new Customer("Oleg", 200);
 
-        SportEquipment equipment = new SportEquipment(Category.BALL, "Football ball", 50);
-        SportEquipment equipment1 = new SportEquipment(Category.SKATES, "Volleyball ball", 60);
+        Customer misha = customerCreator.create("Misha", 200);
+        Customer oleg = customerCreator.create("Oleg", 200);
+
+        SportEquipment equipment = equipmentCreator.create(Category.BALL, "Football ball", 50);
+        SportEquipment equipment1 = equipmentCreator.create(Category.SKATES, "Volleyball ball", 60);
 
         try {
            // shopService.createShop();
@@ -38,12 +43,11 @@ public class Main {
            // shopService.addEquipment(equipment, 5);
             //shopService.addEquipment(equipment1, 1);
 
-            List<SportEquipment> equipmentList = shopService.findEquipments(Category.BALL);
-            System.out.println(shopService.getInfoAboutIssuesGoods());
+            PrintShopInfo.printSearchResult(shopService.findEquipments(Category.BALL));
+            PrintShopInfo.printInfoAboutIssuesGoods(shopService.getInfoAboutIssuesGoods());
 
-            System.out.println(shopService.getInfoAboutAvailableGoods());
-            shopService.leaseEquipment(equipmentList.get(0), misha);
-            shopService.leaseEquipment(equipmentList.get(0), oleg);
+            PrintShopInfo.printInfoAboutAvailableGoods(shopService.getInfoAboutAvailableGoods());
+
 
 
             //System.out.println(misha);
@@ -57,14 +61,8 @@ public class Main {
             System.out.println("файл");
         } catch (PropertyFileNotFoundException e) {
             System.out.println("проперти");
-
-        } catch (ExcessMaximumQuantityEquipmentsException e) {
-            System.out.println("много взял");
-        } catch (EquipmentIsNotAvailableException e) {
-            System.out.println("нет в наличии");
-        } catch (NotEnoughtMoneyException e) {
-            System.out.println("маловато денежек");
         }
+
 
 
 //        try {

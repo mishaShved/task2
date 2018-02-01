@@ -4,7 +4,7 @@ import by.tc.jwd.task2.dao.shop_dao.ShopDAO;
 import by.tc.jwd.task2.entity.Customer;
 import by.tc.jwd.task2.entity.Shop;
 import by.tc.jwd.task2.entity.SportEquipment;
-import by.tc.jwd.task2.entity.category.Category;
+import by.tc.jwd.task2.entity.criteria.Category;
 import by.tc.jwd.task2.exception.*;
 import by.tc.jwd.task2.serialization.ShopSerialization;
 
@@ -107,19 +107,24 @@ public class ShopDAOImpl implements ShopDAO {
     }
 
     @Override
-    public List<SportEquipment> getInfoAboutIssuesGoods() throws ShopIsNotOpenException {
+    public Map<SportEquipment, Integer> getInfoAboutIssuesGoods() throws ShopIsNotOpenException {
 
         if (shop == null){
             throw new ShopIsNotOpenException();
         }
-        List<SportEquipment> info = new ArrayList<>();
+        Map<SportEquipment, Integer> info = new HashMap<>();
 
         int i = 0;
 
         while (i < shop.getCostumersCount()){
 
             for (int j = 0; j < shop.getCustomer(i).getCountOfRentedEquipment(); j++) {
-                info.add(shop.getCustomer(i).getEquipment(j));
+                //info.add(shop.getCustomer(i).getEquipment(j));
+                if (info.containsKey(shop.getCustomer(i).getEquipment(j))){
+                    info.put(shop.getCustomer(i).getEquipment(j), info.get(shop.getCustomer(i).getEquipment(j)) + 1);
+                }else{
+                    info.put(shop.getCustomer(i).getEquipment(j), 1);
+                }
             }
             i++;
         }

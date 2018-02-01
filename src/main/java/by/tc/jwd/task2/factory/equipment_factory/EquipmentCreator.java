@@ -1,7 +1,7 @@
 package by.tc.jwd.task2.factory.equipment_factory;
 
 import by.tc.jwd.task2.entity.SportEquipment;
-import by.tc.jwd.task2.entity.category.Category;
+import by.tc.jwd.task2.entity.criteria.Category;
 
 public interface EquipmentCreator {
 

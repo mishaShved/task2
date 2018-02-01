@@ -1,8 +1,5 @@
 package by.tc.jwd.task2.entity;
 
-import by.tc.jwd.task2.entity.category.Category;
-import by.tc.jwd.task2.exception.EquipmentIsNotAvailableException;
-
 import java.io.Serializable;
 import java.util.*;
 

@@ -4,7 +4,7 @@ import by.tc.jwd.task2.dao.DAOFactory;
 import by.tc.jwd.task2.dao.shop_dao.ShopDAO;
 import by.tc.jwd.task2.entity.Customer;
 import by.tc.jwd.task2.entity.SportEquipment;
-import by.tc.jwd.task2.entity.category.Category;
+import by.tc.jwd.task2.entity.criteria.Category;
 import by.tc.jwd.task2.exception.*;
 import by.tc.jwd.task2.service.ShopService;
 
@@ -50,7 +50,7 @@ public class ShopServiceImpl implements ShopService {
     }
 
     @Override
-    public List<SportEquipment> getInfoAboutIssuesGoods() throws ShopIsNotOpenException {
+    public Map<SportEquipment, Integer> getInfoAboutIssuesGoods() throws ShopIsNotOpenException {
         return shopDAO.getInfoAboutIssuesGoods();
     }
 

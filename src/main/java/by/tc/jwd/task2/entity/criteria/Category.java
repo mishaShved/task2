@@ -1,4 +1,4 @@
-package by.tc.jwd.task2.entity.category;
+package by.tc.jwd.task2.entity.criteria;
 
 import java.io.Serializable;
 
