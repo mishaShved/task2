@@ -27,41 +27,35 @@ public class Customer implements Serializable{
         return name;
     }
 
-    public RentUnit getRentUnit() {
-        return rentUnit;
+
+    public int getCountOfRentedEquipment() {
+        return rentUnit.getLength();
     }
+
 
     public int getMoney() {
         return money;
     }
 
+
     public void setMoney(int money) {
         this.money = money;
     }
 
-    public void rentEquipment(Shop shop, SportEquipment sportEquipment)
-            throws ExcessMaximumQuantityEquipmentsException, NotEnoughtMoneyException,
-                EquipmentIsNotAvailableException{
-
-        if(sportEquipment.getPrice() > money){
-            throw new NotEnoughtMoneyException();
-        }else if(rentUnit.getLength() == 3){
-            throw new ExcessMaximumQuantityEquipmentsException();
-        }
-        shop.giveEquipment(sportEquipment);
-        rentUnit.addUnit(sportEquipment);
-        money = money - sportEquipment.getPrice();
-
-    }
 
     public void returnEquipment(int i){
         rentUnit.removeUnit(i);
     }
 
-    public void returnEquipment(SportEquipment sportEquipment, Shop shop){
-        rentUnit.removeUnit(sportEquipment);
-        shop.returnEquipment(sportEquipment);
+
+    public void addEquipment(SportEquipment sportEquipment){
+        rentUnit.addUnit(sportEquipment);
     }
+
+    public SportEquipment getEquipment(int i){
+        return rentUnit.getUnit(i);
+    }
+
 
     @Override
     public boolean equals(Object o) {

@@ -1,21 +1,21 @@
-package by.tc.jwd.task2.dao.shop_dao;
+package by.tc.jwd.task2.service;
 
 import by.tc.jwd.task2.entity.Customer;
+import by.tc.jwd.task2.entity.Shop;
 import by.tc.jwd.task2.entity.SportEquipment;
 import by.tc.jwd.task2.entity.category.Category;
 import by.tc.jwd.task2.exception.*;
 
 import java.util.List;
 
-public interface ShopDAO {
+public interface ShopService {
 
     void createShop() throws WorkWithDataSourceException, PropertyFileNotFoundException;
     void openShop() throws WorkWithDataSourceException, PropertyFileNotFoundException;
     void addEquipment(SportEquipment sportEquipment, int count) throws ShopIsNotOpenException;
     SportEquipment leaseEquipment(SportEquipment sportEquipment, Customer customer)
             throws ShopIsNotOpenException, EquipmentIsNotAvailableException,
-            NotEnoughtMoneyException, ExcessMaximumQuantityEquipmentsException;
-
+                NotEnoughtMoneyException, ExcessMaximumQuantityEquipmentsException;
     List<SportEquipment> findEquipments(Category category) throws ShopIsNotOpenException;
     List<SportEquipment> getInfoAboutIssuesGoods() throws ShopIsNotOpenException;
     void closeShop() throws ShopIsNotOpenException, WorkWithDataSourceException, PropertyFileNotFoundException;
