@@ -14,7 +14,6 @@ public class Shop implements Serializable {
     }
 
     public void addCustomer(Customer customer){
-        System.out.println("asd");
         customersJournal.add(customer);
     }
 
@@ -70,15 +69,9 @@ public class Shop implements Serializable {
     }
 
 
-    public void setEquipmentsValue(SportEquipment sportEquipment, int coount){
-        goods.put(sportEquipment, goods.get(sportEquipment) - 1);
+    public void setEquipmentsValue(SportEquipment sportEquipment, int count){
+        goods.put(sportEquipment, count);
     }
-
-
-    public void returnEquipment(SportEquipment sportEquipment){
-        goods.put(sportEquipment, goods.get(sportEquipment) + 1);
-    }
-
 
     public List<Customer> getInfoAboutCustomers(){
 

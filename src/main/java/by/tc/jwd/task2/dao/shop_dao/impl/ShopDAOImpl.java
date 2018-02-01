@@ -84,7 +84,12 @@ public class ShopDAOImpl implements ShopDAO {
         }
 
         customer = shop.getCustomer(customer.getName());
+
+        shop.setEquipmentsValue(customer.getEquipment(equipmentIndex),
+                shop.getEquipmentsCount(customer.getEquipment(equipmentIndex)) + 1);
+
         customer.returnEquipment(equipmentIndex);
+
 
         if(customer.getCountOfRentedEquipment() == 0){
             shop.deleteCustomer(customer);
