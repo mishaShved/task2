@@ -26,7 +26,7 @@ public class Main {
         SportEquipment equipment1 = new SportEquipment(Category.SKATES, "Volleyball ball", 60);
 
         try {
-            //shopService.createShop();
+           // shopService.createShop();
             shopService.openShop();
         } catch (WorkWithDataSourceException e) {
             System.out.println("файл");
@@ -35,14 +35,15 @@ public class Main {
         }
 
         try {
-            //shopService.addEquipment(equipment, 5);
+           // shopService.addEquipment(equipment, 5);
             //shopService.addEquipment(equipment1, 1);
 
             List<SportEquipment> equipmentList = shopService.findEquipments(Category.BALL);
             System.out.println(shopService.getInfoAboutIssuesGoods());
+
+            System.out.println(shopService.getInfoAboutAvailableGoods());
             shopService.leaseEquipment(equipmentList.get(0), misha);
             shopService.leaseEquipment(equipmentList.get(0), oleg);
-
 
 
             //System.out.println(misha);
