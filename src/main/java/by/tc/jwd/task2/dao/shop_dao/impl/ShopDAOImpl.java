@@ -7,11 +7,11 @@ import by.tc.jwd.task2.entity.SportEquipment;
 import by.tc.jwd.task2.entity.category.Category;
 import by.tc.jwd.task2.exception.*;
 import by.tc.jwd.task2.serialization.ShopSerialization;
-import com.sun.org.apache.xpath.internal.SourceTree;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ShopDAOImpl implements ShopDAO {
 
@@ -122,6 +122,19 @@ public class ShopDAOImpl implements ShopDAO {
                 info.add(shop.getCustomer(i).getEquipment(j));
             }
             i++;
+        }
+        return info;
+    }
+
+    @Override
+    public Map<SportEquipment, Integer> getInfoAboutAvailableGoods() throws ShopIsNotOpenException {
+        if (shop == null){
+            throw new ShopIsNotOpenException();
+        }
+        Map<SportEquipment, Integer> info = new HashMap<>();
+
+        for(SportEquipment sportEquipment : shop.getKeySet()){
+            info.put(sportEquipment, shop.getEquipmentsCount(sportEquipment));
         }
         return info;
     }

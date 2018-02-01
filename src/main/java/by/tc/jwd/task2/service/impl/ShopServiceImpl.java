@@ -9,6 +9,7 @@ import by.tc.jwd.task2.exception.*;
 import by.tc.jwd.task2.service.ShopService;
 
 import java.util.List;
+import java.util.Map;
 
 public class ShopServiceImpl implements ShopService {
 
@@ -51,6 +52,11 @@ public class ShopServiceImpl implements ShopService {
     @Override
     public List<SportEquipment> getInfoAboutIssuesGoods() throws ShopIsNotOpenException {
         return shopDAO.getInfoAboutIssuesGoods();
+    }
+
+    @Override
+    public Map<SportEquipment, Integer> getInfoAboutAvailableGoods() throws ShopIsNotOpenException {
+        return shopDAO.getInfoAboutAvailableGoods();
     }
 
     @Override

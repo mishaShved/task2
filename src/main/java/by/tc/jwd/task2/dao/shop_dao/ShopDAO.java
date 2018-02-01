@@ -6,6 +6,7 @@ import by.tc.jwd.task2.entity.category.Category;
 import by.tc.jwd.task2.exception.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface ShopDAO {
 
@@ -23,6 +24,8 @@ public interface ShopDAO {
     List<SportEquipment> findEquipments(Category category) throws ShopIsNotOpenException;
 
     List<SportEquipment> getInfoAboutIssuesGoods() throws ShopIsNotOpenException;
+
+    Map<SportEquipment, Integer> getInfoAboutAvailableGoods() throws ShopIsNotOpenException;
 
     void closeShop() throws ShopIsNotOpenException, WorkWithDataSourceException, PropertyFileNotFoundException;
 
