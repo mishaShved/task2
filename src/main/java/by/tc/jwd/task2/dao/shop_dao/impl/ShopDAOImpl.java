@@ -7,7 +7,12 @@ import by.tc.jwd.task2.entity.SportEquipment;
 import by.tc.jwd.task2.entity.criteria.Category;
 import by.tc.jwd.task2.entity.criteria.Criteria;
 import by.tc.jwd.task2.entity.criteria.SearchCriteria;
-import by.tc.jwd.task2.exception.*;
+import by.tc.jwd.task2.exception.EquipmentIsNotAvailableException;
+import by.tc.jwd.task2.exception.PropertyFileNotFoundException;
+import by.tc.jwd.task2.exception.ShopIsNotOpenException;
+import by.tc.jwd.task2.exception.WorkWithDataSourceException;
+import by.tc.jwd.task2.exception.ExcessMaximumQuantityEquipmentsException;
+import by.tc.jwd.task2.exception.NotEnoughtMoneyException;
 import by.tc.jwd.task2.serialization.ShopSerialization;
 
 import java.lang.reflect.InvocationTargetException;
@@ -49,7 +54,7 @@ public class ShopDAOImpl implements ShopDAO {
     @Override
     public SportEquipment leaseEquipment(SportEquipment sportEquipment, Customer customer)
             throws ShopIsNotOpenException, EquipmentIsNotAvailableException,
-                NotEnoughtMoneyException, ExcessMaximumQuantityEquipmentsException {
+            NotEnoughtMoneyException, ExcessMaximumQuantityEquipmentsException {
 
         if (shop == null) {
             throw new ShopIsNotOpenException();
