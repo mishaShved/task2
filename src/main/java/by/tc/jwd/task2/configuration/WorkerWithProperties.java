@@ -9,14 +9,13 @@ public class WorkerWithProperties {
 
     private static WorkerWithProperties ourInstance;
     private String fileName;
-    private String customersJournalFileName;
+
 
     private WorkerWithProperties() throws IOException{
 
         Properties props = new Properties();
         props.load(new FileInputStream(new File("src/main/resources/properties.ini")));
         fileName = props.getProperty("SHOP_FILE_NAME");
-        customersJournalFileName = props.getProperty("JOURNAL_FILE_NAME");
 
     }
 
@@ -33,7 +32,4 @@ public class WorkerWithProperties {
         return fileName;
     }
 
-    public String getCustumersJournalFileName() {
-        return customersJournalFileName;
-    }
 }
